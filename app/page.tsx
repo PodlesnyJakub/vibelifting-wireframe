@@ -30,6 +30,47 @@ export default function Home() {
           <h2 className="section-title">What do you need?</h2>
           
           <div className="services-grid">
+                        {/* Migration Service */}
+                        <div className="service-card">
+              <div className="service-icon">🔧</div>
+              <h3 className="service-title">Vibecode cleanup</h3>
+              <p className="service-subtitle">
+                Built something in Lovable or v0? We make it ready for real users. Secure, fast, maintainable.
+              </p>
+              
+              <div className="service-section">
+                <h4>What we do:</h4>
+                <ul>
+                  <li>Free audit of your prototype</li>
+                  <li>Fix security & performance</li>
+                  <li>Keep what works, rebuild what doesn&apos;t</li>
+                  <li>Deploy to production</li>
+                </ul>
+              </div>
+              
+              <div className="service-meta">
+                <div className="meta-item">
+                  <div className="meta-label">Timeline</div>
+                  <div className="meta-value">3-4 weeks</div>
+                </div>
+                <div className="meta-item">
+                  <div className="meta-label">Investment</div>
+                  <div className="meta-value">From 12 500 USD</div>
+                </div>
+              </div>
+              
+              <div className="service-section">
+                <h4>Perfect for:</h4>
+                <ul>
+                  <li>You have a working prototype</li>
+                  <li>Ready to get real users</li>
+                  <li>Need it bulletproof</li>
+                </ul>
+              </div>
+              
+              <a href="#contact" className="service-cta">Get free audit →</a>
+            </div>
+
             {/* New MVP Service */}
             <div className="service-card">
               <div className="service-icon">🚀</div>
@@ -55,7 +96,7 @@ export default function Home() {
                 </div>
                 <div className="meta-item">
                   <div className="meta-label">Investment</div>
-                  <div className="meta-value">From 480k Kč</div>
+                  <div className="meta-value">From 25 000 USD</div>
                 </div>
               </div>
               
@@ -71,46 +112,6 @@ export default function Home() {
               <a href="#contact" className="service-cta">Build your MVP →</a>
             </div>
             
-            {/* Migration Service */}
-            <div className="service-card">
-              <div className="service-icon">🔧</div>
-              <h3 className="service-title">Fix Your Prototype</h3>
-              <p className="service-subtitle">
-                Built something in Lovable or v0? We make it ready for real users. Secure, fast, maintainable.
-              </p>
-              
-              <div className="service-section">
-                <h4>What we do:</h4>
-                <ul>
-                  <li>Free audit of your prototype</li>
-                  <li>Fix security & performance</li>
-                  <li>Keep what works, rebuild what doesn&apos;t</li>
-                  <li>Deploy to production</li>
-                </ul>
-              </div>
-              
-              <div className="service-meta">
-                <div className="meta-item">
-                  <div className="meta-label">Timeline</div>
-                  <div className="meta-value">3-4 weeks</div>
-                </div>
-                <div className="meta-item">
-                  <div className="meta-label">Investment</div>
-                  <div className="meta-value">From 240k Kč</div>
-                </div>
-              </div>
-              
-              <div className="service-section">
-                <h4>Perfect for:</h4>
-                <ul>
-                  <li>You have a working prototype</li>
-                  <li>Ready to get real users</li>
-                  <li>Need it bulletproof</li>
-                </ul>
-              </div>
-              
-              <a href="#contact" className="service-cta">Get free audit →</a>
-            </div>
           </div>
         </div>
       </section>
