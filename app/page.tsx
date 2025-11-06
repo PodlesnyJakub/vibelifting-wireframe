@@ -18,8 +18,7 @@ export default function Home() {
           <p className="tagline">Fast development. Quality code. Real results.</p>
           
           <div className="hero-ctas">
-            <a href="#services" className="cta-primary">Start your project →</a>
-            <a href="#work" className="cta-secondary">See our work ↓</a>
+            <a href="#services" className="cta-primary">Get free assesment →</a>
           </div>
         </div>
       </section>
@@ -30,8 +29,8 @@ export default function Home() {
           <h2 className="section-title">What do you need?</h2>
           
           <div className="services-grid">
-                        {/* Migration Service */}
-                        <div className="service-card">
+            {/* Migration Service */}
+            <div className="service-card">
               <div className="service-icon">🔧</div>
               <h3 className="service-title">Vibecode cleanup</h3>
               <p className="service-subtitle">
