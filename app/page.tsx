@@ -15,7 +15,7 @@ export default function Home() {
       <section className="hero">
         <div className="container">
           <h1>Building your MVP in 8 weeks.<br />Or make your prototype production-ready.</h1>
-          <p className="tagline">Fast development. Quality code. Real results.</p>
+          <p className="tagline">AI-powered development. Quality code. Real results.</p>
           
           <div className="hero-ctas">
             <a href="#services" className="cta-primary">Get free assesment →</a>
@@ -34,7 +34,7 @@ export default function Home() {
               <div className="service-icon">🔧</div>
               <h3 className="service-title">Vibecode cleanup</h3>
               <p className="service-subtitle">
-                Built something in Lovable or v0? We make it ready for real users. Secure, fast, maintainable.
+                Built something with AI tools like Lovable or v0? We make it production-ready. Secure, fast, maintainable.
               </p>
               
               <div className="service-section">
@@ -75,7 +75,7 @@ export default function Home() {
               <div className="service-icon">🚀</div>
               <h3 className="service-title">Build New MVP</h3>
               <p className="service-subtitle">
-                We build your SaaS from scratch. You get a working product your users can actually use.
+                We build your SaaS from scratch using AI-accelerated development. You get a working product your users can actually use.
               </p>
               
               <div className="service-section">
@@ -132,7 +132,7 @@ export default function Home() {
             <div className="timeline-item">
               <h3>Week 2-7: You see progress every week</h3>
               <p>
-                We build iteratively. Every Tuesday, you see what&apos;s new. You give feedback. We adjust. 
+                We build iteratively with AI-assisted development. Every Tuesday, you see what&apos;s new. You give feedback. We adjust. 
                 No surprises. No waiting until the end.
               </p>
             </div>
@@ -169,8 +169,8 @@ export default function Home() {
             <div className="benefit-item">
               <h3>You get speed AND quality</h3>
               <p>
-                We use AI to build fast. But every line of code is reviewed by senior developers. 
-                You don&apos;t have to choose between fast and good.
+                We leverage cutting-edge AI to build incredibly fast—what used to take months now takes weeks. 
+                But every line of code is reviewed by senior developers. You don&apos;t have to choose between fast and good.
               </p>
             </div>
             
@@ -218,7 +218,7 @@ export default function Home() {
                 <h4>The challenge</h4>
                 <p>
                   [Client] had an idea but no technical team. Traditional agencies wanted 6+ months and 800k+. 
-                  They needed to validate fast.
+                  They needed to validate fast. AI-powered development made it possible.
                 </p>
               </div>
               
@@ -257,9 +257,9 @@ export default function Home() {
       {/* Tech Credibility */}
       <section className="tech-credibility">
         <div className="container">
-          <h2>Built with modern, proven tools</h2>
+          <h2>Built with modern, proven tools (and AI superpowers)</h2>
           <p>
-            We use the same technology stack that powers companies like Vercel, Linear, 
+            We combine AI-powered development with the same technology stack that powers companies like Vercel, Linear, 
             and thousands of successful startups.
           </p>
           
@@ -271,7 +271,7 @@ export default function Home() {
           </div>
           
           <p className="tech-note">
-            Why it matters: Battle-tested. Well-documented. Easy to hire developers for. No vendor lock-in.
+            Why it matters: AI accelerates development by 3-5x. The stack is battle-tested, well-documented, and easy to hire developers for. No vendor lock-in.
           </p>
         </div>
       </section>
