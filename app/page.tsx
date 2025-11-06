@@ -1,4 +1,34 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+
 export default function Home() {
+  const [currentWord, setCurrentWord] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const words = ['lovable', 'v0', 'macally'];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWord((prev) => prev + 1);
+    }, 2000); // Change word every 2 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    // When we reach the duplicate first item, reset to the actual first item
+    if (currentWord === words.length) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentWord(0);
+      }, 500); // Wait for transition to complete
+      
+      setTimeout(() => {
+        setIsTransitioning(true);
+      }, 550); // Re-enable transition after reset
+    }
+  }, [currentWord, words.length]);
+
   return (
     <>
       {/* Navigation */}
@@ -14,12 +44,33 @@ export default function Home() {
       {/* Hero Section */}
       <section className="hero">
         <div className="container">
-          <h1>Building your MVP in 8 weeks.<br />Or make your prototype production-ready.</h1>
-          <p className="tagline">Fast development. Quality code. Real results.</p>
+          <h1>
+            Lift your{' '}
+            <span className="word-carousel">
+              <span 
+                className="word-carousel-inner"
+                style={{ 
+                  transform: `translateY(-${currentWord * (100 / (words.length + 1))}%)`,
+                  transition: isTransitioning ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
+                }}
+              >
+                {words.map((word, index) => (
+                  <span key={index} className="word-carousel-item">
+                    {word}
+                  </span>
+                ))}
+                {/* Duplicate first word for seamless loop */}
+                <span className="word-carousel-item">
+                  {words[0]}
+                </span>
+              </span>
+            </span>{' '}
+            app to production ready quality.
+          </h1>
+          <p className="tagline">AI-powered development. Quality code. Real results.</p>
           
           <div className="hero-ctas">
-            <a href="#services" className="cta-primary">Start your project →</a>
-            <a href="#work" className="cta-secondary">See our work ↓</a>
+            <a href="#services" className="cta-primary">Get free assesment →</a>
           </div>
         </div>
       </section>
@@ -30,53 +81,12 @@ export default function Home() {
           <h2 className="section-title">What do you need?</h2>
           
           <div className="services-grid">
-            {/* New MVP Service */}
-            <div className="service-card">
-              <div className="service-icon">🚀</div>
-              <h3 className="service-title">Build New MVP</h3>
-              <p className="service-subtitle">
-                We build your SaaS from scratch. You get a working product your users can actually use.
-              </p>
-              
-              <div className="service-section">
-                <h4>What you get:</h4>
-                <ul>
-                  <li>Working web application</li>
-                  <li>User accounts & login</li>
-                  <li>Your core features live</li>
-                  <li>Ready to launch</li>
-                </ul>
-              </div>
-              
-              <div className="service-meta">
-                <div className="meta-item">
-                  <div className="meta-label">Timeline</div>
-                  <div className="meta-value">6-8 weeks</div>
-                </div>
-                <div className="meta-item">
-                  <div className="meta-label">Investment</div>
-                  <div className="meta-value">From 480k Kč</div>
-                </div>
-              </div>
-              
-              <div className="service-section">
-                <h4>Perfect for:</h4>
-                <ul>
-                  <li>You have an idea, need execution</li>
-                  <li>Want to validate fast</li>
-                  <li>Need technical co-founder alternative</li>
-                </ul>
-              </div>
-              
-              <a href="#contact" className="service-cta">Build your MVP →</a>
-            </div>
-            
             {/* Migration Service */}
             <div className="service-card">
               <div className="service-icon">🔧</div>
-              <h3 className="service-title">Fix Your Prototype</h3>
+              <h3 className="service-title">Vibecode cleanup</h3>
               <p className="service-subtitle">
-                Built something in Lovable or v0? We make it ready for real users. Secure, fast, maintainable.
+                Built something with AI tools like Lovable or v0? We make it production-ready. Secure, fast, maintainable.
               </p>
               
               <div className="service-section">
@@ -96,7 +106,7 @@ export default function Home() {
                 </div>
                 <div className="meta-item">
                   <div className="meta-label">Investment</div>
-                  <div className="meta-value">From 240k Kč</div>
+                  <div className="meta-value">From 12 500 USD</div>
                 </div>
               </div>
               
@@ -110,6 +120,123 @@ export default function Home() {
               </div>
               
               <a href="#contact" className="service-cta">Get free audit →</a>
+            </div>
+
+            {/* New MVP Service */}
+            <div className="service-card">
+              <div className="service-icon">🚀</div>
+              <h3 className="service-title">Build New MVP</h3>
+              <p className="service-subtitle">
+                We build your SaaS from scratch using AI-accelerated development. You get a working product your users can actually use.
+              </p>
+              
+              <div className="service-section">
+                <h4>What you get:</h4>
+                <ul>
+                  <li>Working web application</li>
+                  <li>User accounts & login</li>
+                  <li>Your core features live</li>
+                  <li>Ready to launch</li>
+                </ul>
+              </div>
+              
+              <div className="service-meta">
+                <div className="meta-item">
+                  <div className="meta-label">Timeline</div>
+                  <div className="meta-value">6-8 weeks</div>
+                </div>
+                <div className="meta-item">
+                  <div className="meta-label">Investment</div>
+                  <div className="meta-value">From 25 000 USD</div>
+                </div>
+              </div>
+              
+              <div className="service-section">
+                <h4>Perfect for:</h4>
+                <ul>
+                  <li>You have an idea, need execution</li>
+                  <li>Want to validate fast</li>
+                  <li>Need technical co-founder alternative</li>
+                </ul>
+              </div>
+              
+              <a href="#contact" className="service-cta">Build your MVP →</a>
+            </div>
+            
+          </div>
+        </div>
+        
+      </section>
+
+      {/* Guarantees */}
+      <section className="guarantees">
+        <div className="container">
+          <h2 className="section-title">Your success is guaranteed</h2>
+          <p className="section-subtitle">
+            Industry-leading guarantees and protection for your investment
+          </p>
+          
+          <div className="guarantees-grid">
+            <div className="guarantee-item">
+              <div className="guarantee-icon">🔒</div>
+              <h3>Full Code Ownership</h3>
+              <p>You own 100% of the code from day one</p>
+            </div>
+            
+            <div className="guarantee-item">
+              <div className="guarantee-icon">💰</div>
+              <h3>14-Day Money Back</h3>
+              <p>Not satisfied? Get a full refund within 14 days</p>
+            </div>
+            
+            <div className="guarantee-item">
+              <div className="guarantee-icon">🔓</div>
+              <h3>No Lock-in</h3>
+              <p>Take your code and work with anyone, anytime</p>
+            </div>
+            
+            <div className="guarantee-item">
+              <div className="guarantee-icon">🛡️</div>
+              <h3>Security Standards</h3>
+              <p>Production-grade security in every line of code</p>
+            </div>
+            
+            <div className="guarantee-item">
+              <div className="guarantee-icon">⏱️</div>
+              <h3>2-Week Support</h3>
+              <p>Free support for any issues after launch</p>
+            </div>
+            
+            <div className="guarantee-item">
+              <div className="guarantee-icon">✅</div>
+              <h3>Production-Ready Code</h3>
+              <p>Battle-tested standards from day one</p>
+            </div>
+          </div>
+          
+          <div className="guarantee-details">
+            <div className="guarantee-detail-item">
+              <h3>Clean Code</h3>
+              <p>
+                All code is reviewed by senior developers and follows industry best practices. 
+                Well-documented and easy for your future team to maintain.
+              </p>
+            </div>
+            
+            <div className="guarantee-detail-item">
+              <h3>Full Transparency</h3>
+              <p>
+                Weekly progress updates and complete visibility throughout the development process. 
+                You always know what we&apos;re building and why.
+              </p>
+            </div>
+            
+            <div className="guarantee-detail-item">
+              <h3>Knowledge Transfer</h3>
+              <p>
+                Complete documentation and training so you or your team can maintain and extend the code. 
+                We help onboard your developers if needed.
+              </p>
             </div>
           </div>
         </div>
@@ -132,7 +259,7 @@ export default function Home() {
             <div className="timeline-item">
               <h3>Week 2-7: You see progress every week</h3>
               <p>
-                We build iteratively. Every Tuesday, you see what&apos;s new. You give feedback. We adjust. 
+                We build iteratively with AI-assisted development. Every Tuesday, you see what&apos;s new. You give feedback. We adjust. 
                 No surprises. No waiting until the end.
               </p>
             </div>
@@ -169,8 +296,8 @@ export default function Home() {
             <div className="benefit-item">
               <h3>You get speed AND quality</h3>
               <p>
-                We use AI to build fast. But every line of code is reviewed by senior developers. 
-                You don&apos;t have to choose between fast and good.
+                We leverage cutting-edge AI to build incredibly fast—what used to take months now takes weeks. 
+                But every line of code is reviewed by senior developers. You don&apos;t have to choose between fast and good.
               </p>
             </div>
             
@@ -218,7 +345,7 @@ export default function Home() {
                 <h4>The challenge</h4>
                 <p>
                   [Client] had an idea but no technical team. Traditional agencies wanted 6+ months and 800k+. 
-                  They needed to validate fast.
+                  They needed to validate fast. AI-powered development made it possible.
                 </p>
               </div>
               
@@ -257,9 +384,9 @@ export default function Home() {
       {/* Tech Credibility */}
       <section className="tech-credibility">
         <div className="container">
-          <h2>Built with modern, proven tools</h2>
+          <h2>Built with modern, proven tools (and AI superpowers)</h2>
           <p>
-            We use the same technology stack that powers companies like Vercel, Linear, 
+            We combine AI-powered development with the same technology stack that powers companies like Vercel, Linear, 
             and thousands of successful startups.
           </p>
           
@@ -271,7 +398,7 @@ export default function Home() {
           </div>
           
           <p className="tech-note">
-            Why it matters: Battle-tested. Well-documented. Easy to hire developers for. No vendor lock-in.
+            Why it matters: AI accelerates development by 3-5x. The stack is battle-tested, well-documented, and easy to hire developers for. No vendor lock-in.
           </p>
         </div>
       </section>
