@@ -77,6 +77,28 @@ nav {
     margin-right: auto;
 }
 
+/* Word Carousel Animation */
+.word-carousel {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    height: 1.2em;
+    position: relative;
+}
+
+.word-carousel-inner {
+    display: flex;
+    flex-direction: column;
+    /* Transition is controlled inline for seamless loop effect */
+}
+
+.word-carousel-item {
+    display: block;
+    height: 1.2em;
+    line-height: 1.2;
+    color: #667eea;
+}
+
 .hero-ctas {
     display: flex;
     gap: 16px;
