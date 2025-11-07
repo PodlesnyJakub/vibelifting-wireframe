@@ -1,11 +1,40 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 export default function Home() {
   const [currentWord, setCurrentWord] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
+  const [prompt, setPrompt] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [response, setResponse] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [apiCallsRemaining, setApiCallsRemaining] = useState(10);
   const words = ['lovable', 'v0', 'macally'];
+  
+  // Limits configuration
+  const MAX_CHARACTERS = 500;
+  const MAX_API_CALLS_PER_SESSION = 3;
+  
+  const suggestions = [
+    'Audit my prototype for security issues',
+    'Estimate cost to make my app production-ready',
+    'Review my codebase architecture',
+    'Plan migration from prototype to MVP'
+  ];
+
+  // Initialize session tracking
+  useEffect(() => {
+    const storedCalls = sessionStorage.getItem('ai_agent_api_calls');
+    if (storedCalls) {
+      const calls = parseInt(storedCalls, 10);
+      setApiCallsRemaining(Math.max(0, MAX_API_CALLS_PER_SESSION - calls));
+    } else {
+      sessionStorage.setItem('ai_agent_api_calls', '0');
+      setApiCallsRemaining(MAX_API_CALLS_PER_SESSION);
+    }
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,6 +58,59 @@ export default function Home() {
     }
   }, [currentWord, words.length]);
 
+  const handleSubmit = async () => {
+    if (!prompt.trim() || isProcessing) return;
+    
+    // Check character limit
+    if (prompt.length > MAX_CHARACTERS) {
+      setError(`Prompt exceeds maximum length of ${MAX_CHARACTERS} characters.`);
+      return;
+    }
+    
+    // Check API call limit
+    const storedCalls = sessionStorage.getItem('ai_agent_api_calls');
+    const currentCalls = storedCalls ? parseInt(storedCalls, 10) : 0;
+    
+    if (currentCalls >= MAX_API_CALLS_PER_SESSION) {
+      setError(`You've reached the limit of ${MAX_API_CALLS_PER_SESSION} API calls per session. Please refresh the page to start a new session.`);
+      return;
+    }
+    
+    setIsProcessing(true);
+    setError(null);
+    setResponse(null);
+    
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: prompt.trim() }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to get response from AI');
+      }
+
+      // Increment API call counter
+      const storedCalls = sessionStorage.getItem('ai_agent_api_calls');
+      const currentCalls = storedCalls ? parseInt(storedCalls, 10) : 0;
+      const newCallCount = currentCalls + 1;
+      sessionStorage.setItem('ai_agent_api_calls', newCallCount.toString());
+      setApiCallsRemaining(MAX_API_CALLS_PER_SESSION - newCallCount);
+
+      setResponse(data.response);
+      setPrompt(''); // Clear input after successful submission
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred. Please try again.');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   return (
     <>
       {/* Navigation */}
@@ -44,33 +126,133 @@ export default function Home() {
       {/* Hero Section */}
       <section className="hero">
         <div className="container">
-          <h1>
-            Lift your{' '}
-            <span className="word-carousel">
-              <span 
-                className="word-carousel-inner"
-                style={{ 
-                  transform: `translateY(-${currentWord * (100 / (words.length + 1))}%)`,
-                  transition: isTransitioning ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
-                }}
-              >
-                {words.map((word, index) => (
-                  <span key={index} className="word-carousel-item">
-                    {word}
+          <div className="hero-content">
+            <h1>
+              Lift your{' '}
+              <span className="word-carousel">
+                <span 
+                  className="word-carousel-inner"
+                  style={{ 
+                    transform: `translateY(-${currentWord * (100 / (words.length + 1))}%)`,
+                    transition: isTransitioning ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
+                  }}
+                >
+                  {words.map((word, index) => (
+                    <span key={index} className="word-carousel-item">
+                      {word}
+                    </span>
+                  ))}
+                  {/* Duplicate first word for seamless loop */}
+                  <span className="word-carousel-item">
+                    {words[0]}
                   </span>
-                ))}
-                {/* Duplicate first word for seamless loop */}
-                <span className="word-carousel-item">
-                  {words[0]}
                 </span>
-              </span>
-            </span>{' '}
-            app to production ready quality.
-          </h1>
-          <p className="tagline">AI-powered development. Quality code. Real results.</p>
-          
-          <div className="hero-ctas">
-            <a href="#services" className="cta-primary">Get free assesment →</a>
+              </span>{' '}
+              app to production ready quality.
+            </h1>
+            <p className="tagline">AI-powered development. Quality code. Real results.</p>
+            
+            {/* AI Agent Interface */}
+            <div className="ai-agent-interface">
+              <div className="ai-agent-card">
+                <div className="ai-agent-header">
+                  <div className="ai-agent-icon">🤖</div>
+                  <div className="ai-agent-title">AI Agent for Instant Results</div>
+                </div>
+                <div className="ai-agent-input-wrapper">
+                  <input
+                    type="text"
+                    className="ai-agent-input"
+                    placeholder="Ask me anything about your project..."
+                    value={prompt}
+                    onChange={(e) => {
+                      if (e.target.value.length <= MAX_CHARACTERS) {
+                        setPrompt(e.target.value);
+                      }
+                    }}
+                    maxLength={MAX_CHARACTERS}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && prompt.trim() && !isProcessing && apiCallsRemaining > 0) {
+                        handleSubmit();
+                      }
+                    }}
+                    disabled={isProcessing || apiCallsRemaining === 0}
+                  />
+                  <button
+                    className="ai-agent-submit"
+                    onClick={handleSubmit}
+                    disabled={!prompt.trim() || isProcessing || apiCallsRemaining === 0}
+                  >
+                    {isProcessing ? (
+                      <span className="ai-agent-loading">⏳</span>
+                    ) : (
+                      <span>→</span>
+                    )}
+                  </button>
+                </div>
+                <div className="ai-agent-limits">
+                  <div className="ai-agent-limit-item">
+                    <span className="ai-agent-limit-label">Characters:</span>
+                    <span className={`ai-agent-limit-value ${prompt.length > MAX_CHARACTERS * 0.9 ? 'ai-agent-limit-warning' : ''}`}>
+                      {prompt.length} / {MAX_CHARACTERS}
+                    </span>
+                  </div>
+                  <div className="ai-agent-limit-item">
+                    <span className="ai-agent-limit-label">API Calls Remaining:</span>
+                    <span className={`ai-agent-limit-value ${apiCallsRemaining <= 2 ? 'ai-agent-limit-warning' : ''} ${apiCallsRemaining === 0 ? 'ai-agent-limit-error' : ''}`}>
+                      {apiCallsRemaining} / {MAX_API_CALLS_PER_SESSION}
+                    </span>
+                  </div>
+                </div>
+                {error && (
+                  <div className="ai-agent-error">
+                    <span className="ai-agent-error-icon">⚠️</span>
+                    <span>{error}</span>
+                  </div>
+                )}
+                {response && (
+                  <div className="ai-agent-response">
+                    <div className="ai-agent-response-header">
+                      <span className="ai-agent-response-icon">✨</span>
+                      <span className="ai-agent-response-title">AI Response</span>
+                    </div>
+                    <div className="ai-agent-response-content">
+                      <ReactMarkdown>{response}</ReactMarkdown>
+                    </div>
+                    <button
+                      className="ai-agent-clear"
+                      onClick={() => {
+                        setResponse(null);
+                        setError(null);
+                      }}
+                    >
+                      Clear
+                    </button>
+                  </div>
+                )}
+                <div className="ai-agent-suggestions">
+                  <div className="ai-agent-suggestions-label">Try asking:</div>
+                  <div className="ai-agent-suggestions-list">
+                    {suggestions.map((suggestion, index) => (
+                      <button
+                        key={index}
+                        className="ai-agent-suggestion-chip"
+                        onClick={() => {
+                          setPrompt(suggestion);
+                        }}
+                        disabled={isProcessing}
+                      >
+                        {suggestion}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="hero-ctas">
+              <a href="#services" className="cta-primary">Get free assesment →</a>
+            </div>
           </div>
         </div>
       </section>
