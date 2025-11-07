@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { ThemeToggle } from './components/ThemeToggle';
 
 export default function Home() {
   const [currentWord, setCurrentWord] = useState(0);
@@ -677,6 +678,7 @@ export default function Home() {
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Service</a>
           </p>
+          <ThemeToggle />
         </div>
       </footer>
     </>
