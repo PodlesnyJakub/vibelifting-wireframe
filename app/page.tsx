@@ -78,7 +78,7 @@ export default function Home() {
       {/* Services Section */}
       <section className="services" id="services">
         <div className="container">
-          <h2 className="section-title">What do you need?</h2>
+          <h2 className="section-title section-title-outlined">What do you need?</h2>
           
           <div className="services-grid">
             {/* Migration Service */}
@@ -171,7 +171,7 @@ export default function Home() {
       {/* Guarantees */}
       <section className="guarantees">
         <div className="container">
-          <h2 className="section-title">Your success is guaranteed</h2>
+          <h2 className="section-title section-title-outlined section-title-center">Your success is guaranteed</h2>
           <p className="section-subtitle">
             Industry-leading guarantees and protection for your investment
           </p>
@@ -245,7 +245,7 @@ export default function Home() {
       {/* How We Work */}
       <section className="how-we-work">
         <div className="container">
-          <h2 className="section-title">How we work</h2>
+          <h2 className="section-title section-title-outlined">How we work</h2>
           
           <div className="timeline">
             <div className="timeline-item">
@@ -290,7 +290,7 @@ export default function Home() {
       {/* Why Us */}
       <section className="why-us">
         <div className="container">
-          <h2 className="section-title">Why choose us?</h2>
+          <h2 className="section-title section-title-outlined">Why choose us?</h2>
           
           <div className="benefits-grid">
             <div className="benefit-item">
@@ -330,7 +330,7 @@ export default function Home() {
       {/* Case Study */}
       <section className="case-study" id="work">
         <div className="container">
-          <h2 className="section-title">Recent project</h2>
+          <h2 className="section-title section-title-outlined">Recent project</h2>
           
           <div className="case-study-content">
             <div className="case-study-image">
@@ -384,7 +384,7 @@ export default function Home() {
       {/* Tech Credibility */}
       <section className="tech-credibility">
         <div className="container">
-          <h2>Built with modern, proven tools (and AI superpowers)</h2>
+          <h2 className="section-title section-title-outlined section-title-center">Built with modern, proven tools (and AI superpowers)</h2>
           <p>
             We combine AI-powered development with the same technology stack that powers companies like Vercel, Linear, 
             and thousands of successful startups.
@@ -406,7 +406,7 @@ export default function Home() {
       {/* FAQ */}
       <section className="faq">
         <div className="container">
-          <h2 className="section-title">Common questions</h2>
+          <h2 className="section-title section-title-outlined section-title-center">Common questions</h2>
           
           <div className="faq-list">
             <div className="faq-item">
@@ -466,7 +466,7 @@ export default function Home() {
       {/* Final CTA */}
       <section className="final-cta" id="contact">
         <div className="container">
-          <h2>Ready to start?</h2>
+          <h2 className="section-title section-title-outlined section-title-center">Ready to start?</h2>
           
           <div className="cta-wrapper">
             <a href="#" className="cta-primary">Book a 30-minute call →</a>
