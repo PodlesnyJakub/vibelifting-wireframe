@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { ThemeToggle } from './components/ThemeToggle';
 
@@ -13,6 +13,14 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [apiCallsRemaining, setApiCallsRemaining] = useState(10);
   const words = ['lovable', 'v0', 'macally'];
+  
+  // Refs for scroll animations
+  const serviceCard1Ref = useRef<HTMLDivElement>(null);
+  const serviceCard2Ref = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const timelineItemsRef = useRef<HTMLDivElement[]>([]);
+  const caseStudyImageRef = useRef<HTMLDivElement>(null);
+  const caseStudySectionsRef = useRef<HTMLDivElement[]>([]);
   
   // Limits configuration
   const MAX_CHARACTERS = 500;
@@ -58,6 +66,151 @@ export default function Home() {
       }, 550); // Re-enable transition after reset
     }
   }, [currentWord, words.length]);
+
+  // Intersection Observer for service cards
+  useEffect(() => {
+    const serviceCards = [serviceCard1Ref.current, serviceCard2Ref.current].filter(Boolean) as HTMLDivElement[];
+    
+    if (serviceCards.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    serviceCards.forEach((card) => {
+      if (card) {
+        card.classList.add('fade-in-up');
+        observer.observe(card);
+      }
+    });
+
+    return () => {
+      serviceCards.forEach((card) => {
+        if (card) observer.unobserve(card);
+      });
+    };
+  }, []);
+
+  // Intersection Observer for guarantee items with staggered animation
+  useEffect(() => {
+    const guaranteeItems = Array.from(document.querySelectorAll('.guarantee-item, .guarantee-detail-item')) as HTMLDivElement[];
+    
+    if (guaranteeItems.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const element = entry.target as HTMLDivElement;
+            const index = guaranteeItems.indexOf(element);
+            
+            // Apply staggered delay: 100ms per item
+            setTimeout(() => {
+              element.classList.add('visible');
+            }, index * 100);
+            
+            observer.unobserve(element);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    guaranteeItems.forEach((item) => {
+      item.classList.add('fade-in-up-staggered');
+      observer.observe(item);
+    });
+
+    return () => {
+      guaranteeItems.forEach((item) => {
+        observer.unobserve(item);
+      });
+    };
+  }, []);
+
+  // Scroll tracking for timeline active states
+  useEffect(() => {
+    const timeline = timelineRef.current;
+    if (!timeline) return;
+
+    const timelineItems = timelineItemsRef.current.filter(Boolean) as HTMLDivElement[];
+    if (timelineItems.length === 0) return;
+
+    const handleScroll = () => {
+      const viewportHeight = window.innerHeight;
+      // Active zone: 20% to 60% of viewport (larger 40% zone for longer active state)
+      const viewportTop = viewportHeight * 0.2;
+      const viewportBottom = viewportHeight * 0.6;
+
+      timelineItems.forEach((item) => {
+        const rect = item.getBoundingClientRect();
+        const itemCenter = rect.top + rect.height / 2;
+
+        // Check if item center is within the active zone
+        if (itemCenter >= viewportTop && itemCenter <= viewportBottom) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    };
+
+    // Initial check
+    handleScroll();
+
+    // Throttled scroll listener
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', throttledHandleScroll);
+  }, []);
+
+  // Intersection Observer for case study sections
+  useEffect(() => {
+    const caseStudySections = caseStudySectionsRef.current.filter(Boolean) as HTMLDivElement[];
+    
+    if (caseStudySections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    caseStudySections.forEach((section) => {
+      section.classList.add('fade-in-up');
+      observer.observe(section);
+    });
+
+    return () => {
+      caseStudySections.forEach((section) => {
+        if (section) observer.unobserve(section);
+      });
+    };
+  }, []);
 
   const handleSubmit = async () => {
     if (!prompt.trim() || isProcessing) return;
@@ -265,7 +418,7 @@ export default function Home() {
           
           <div className="services-grid">
             {/* Migration Service */}
-            <div className="service-card">
+            <div className="service-card" ref={serviceCard1Ref}>
               <div className="service-icon">🔧</div>
               <h3 className="service-title">Vibecode cleanup</h3>
               <p className="service-subtitle">
@@ -306,7 +459,7 @@ export default function Home() {
             </div>
 
             {/* New MVP Service */}
-            <div className="service-card">
+            <div className="service-card" ref={serviceCard2Ref}>
               <div className="service-icon">🚀</div>
               <h3 className="service-title">Build New MVP</h3>
               <p className="service-subtitle">
@@ -430,37 +583,65 @@ export default function Home() {
         <div className="container">
           <h2 className="section-title section-title-outlined">How we work</h2>
           
-          <div className="timeline">
-            <div className="timeline-item">
-              <h3>Week 1: We understand your vision</h3>
-              <p>
-                30-minute call. You explain what you need. We ask questions. We agree on what to build. 
-                No tech jargon. Just clear scope.
-              </p>
+          <div className="timeline" ref={timelineRef}>
+            <div 
+              className="timeline-item"
+              ref={(el) => {
+                if (el) timelineItemsRef.current[0] = el;
+              }}
+            >
+              <div className="timeline-item-content">
+                <h3>Week 1: We understand your vision</h3>
+                <p>
+                  30-minute call. You explain what you need. We ask questions. We agree on what to build. 
+                  No tech jargon. Just clear scope.
+                </p>
+              </div>
             </div>
             
-            <div className="timeline-item">
-              <h3>Week 2-7: You see progress every week</h3>
-              <p>
-                We build iteratively with AI-assisted development. Every Tuesday, you see what&apos;s new. You give feedback. We adjust. 
-                No surprises. No waiting until the end.
-              </p>
+            <div 
+              className="timeline-item"
+              ref={(el) => {
+                if (el) timelineItemsRef.current[1] = el;
+              }}
+            >
+              <div className="timeline-item-content">
+                <h3>Week 2-7: You see progress every week</h3>
+                <p>
+                  We build iteratively with AI-assisted development. Every Tuesday, you see what&apos;s new. You give feedback. We adjust. 
+                  No surprises. No waiting until the end.
+                </p>
+              </div>
             </div>
             
-            <div className="timeline-item">
-              <h3>Week 8: Launch</h3>
-              <p>
-                Your product goes live. We hand over everything: code, documentation, logins. You own it all. 
-                We stick around for 2 weeks to help.
-              </p>
+            <div 
+              className="timeline-item"
+              ref={(el) => {
+                if (el) timelineItemsRef.current[2] = el;
+              }}
+            >
+              <div className="timeline-item-content">
+                <h3>Week 8: Launch</h3>
+                <p>
+                  Your product goes live. We hand over everything: code, documentation, logins. You own it all. 
+                  We stick around for 2 weeks to help.
+                </p>
+              </div>
             </div>
             
-            <div className="timeline-item">
-              <h3>After launch: Your call</h3>
-              <p>
-                Need more features? We can help. Want to hire your own team? The code is clean. 
-                Want us to maintain it? We offer that too.
-              </p>
+            <div 
+              className="timeline-item"
+              ref={(el) => {
+                if (el) timelineItemsRef.current[3] = el;
+              }}
+            >
+              <div className="timeline-item-content">
+                <h3>After launch: Your call</h3>
+                <p>
+                  Need more features? We can help. Want to hire your own team? The code is clean. 
+                  Want us to maintain it? We offer that too.
+                </p>
+              </div>
             </div>
           </div>
           
@@ -516,7 +697,7 @@ export default function Home() {
           <h2 className="section-title section-title-outlined">Recent project</h2>
           
           <div className="case-study-content">
-            <div className="case-study-image">
+            <div className="case-study-image" ref={caseStudyImageRef}>
               Screenshot / Mockup
             </div>
             
@@ -524,7 +705,12 @@ export default function Home() {
               <h3>Triby</h3>
               <div className="case-study-meta">8 weeks from idea to launch</div>
               
-              <div className="case-study-section">
+              <div 
+                className="case-study-section"
+                ref={(el) => {
+                  if (el) caseStudySectionsRef.current[0] = el;
+                }}
+              >
                 <h4>The challenge</h4>
                 <p>
                   [Client] had an idea but no technical team. Traditional agencies wanted 6+ months and 800k+. 
@@ -532,7 +718,12 @@ export default function Home() {
                 </p>
               </div>
               
-              <div className="case-study-section">
+              <div 
+                className="case-study-section"
+                ref={(el) => {
+                  if (el) caseStudySectionsRef.current[1] = el;
+                }}
+              >
                 <h4>What we built</h4>
                 <p>
                   A working SaaS platform with user management, real-time data updates, and export functionality. 
@@ -540,7 +731,12 @@ export default function Home() {
                 </p>
               </div>
               
-              <div className="case-study-section">
+              <div 
+                className="case-study-section"
+                ref={(el) => {
+                  if (el) caseStudySectionsRef.current[2] = el;
+                }}
+              >
                 <h4>The result</h4>
                 <ul>
                   <li>Launched in 8 weeks</li>
