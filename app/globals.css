@@ -213,6 +213,7 @@ nav {
     background: var(--gradient-bg-hero);
     position: relative;
     overflow: hidden;
+    padding: var(--spacing-2xl) 0;
 }
 
 .hero .container {
@@ -227,7 +228,7 @@ nav {
 /* AI Agent Interface */
 .ai-agent-interface {
     max-width: 800px;
-    margin: 180px auto 56px;
+    margin: 80px auto 56px;
 }
 
 .ai-agent-card {
@@ -639,7 +640,7 @@ nav {
 
 .hero h1 {
     font-family: var(--font-heading);
-    font-size: clamp(56px, 10vw, 100px);
+    font-size: clamp(48px, 5vw, 72px);
     font-weight: 900;
     line-height: 1.1;
     margin-bottom: var(--spacing-xl);
@@ -651,7 +652,7 @@ nav {
 .hero .tagline {
     font-size: clamp(18px, 2.5vw, 24px);
     color: var(--color-text-light);
-    margin-bottom: var(--spacing-4xl);
+    margin-bottom: var(--spacing-2xl);
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
@@ -748,7 +749,7 @@ nav {
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: clamp(48px, 8vw, 120px);
+    font-size: clamp(40px, 4vw, 64px);
     font-weight: 900;
     text-align: left;
     margin-bottom: var(--spacing-4xl);
@@ -805,7 +806,7 @@ nav {
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--gradient-primary);
+    background: var(--color-secondary);
     transform: scaleX(0);
     transition: transform 0.4s ease;
 }
@@ -872,7 +873,7 @@ nav {
 .service-section li:before {
     content: "✓";
     margin-right: 12px;
-    color: var(--color-primary);
+    color: var(--color-secondary);
     font-weight: 700;
     flex-shrink: 0;
     margin-top: 2px;
@@ -1017,6 +1018,43 @@ nav {
     font-weight: 400;
 }
 
+/* Scroll Animations */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+}
+
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in-up-staggered {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+}
+
+.fade-in-up-staggered.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .fade-in-up,
+    .fade-in-up-staggered {
+        opacity: 1;
+        transform: translateY(0);
+        transition: none;
+    }
+}
+
 /* How We Work */
 .how-we-work {
     padding: var(--spacing-6xl) 0;
@@ -1027,26 +1065,40 @@ nav {
     max-width: 1000px;
     margin: var(--spacing-5xl) auto 0;
     position: relative;
+    padding-top: 120px;
+    padding-bottom: 120px;
 }
 
 .timeline::before {
     content: '';
-    position: absolute;
+    position: sticky;
+    top: 50%;
     left: 20px;
-    top: 0;
-    bottom: 0;
+    transform: translateY(-50%);
+    height: calc(100vh - 240px);
+    max-height: 800px;
     width: 2px;
     background: var(--color-border-light);
+    z-index: 1;
 }
 
 .timeline-item {
     margin-bottom: var(--spacing-4xl);
     padding-left: 72px;
     position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.7;
+    transform: translateX(0);
+    will-change: opacity, transform, box-shadow;
 }
 
 .timeline-item:last-child {
     margin-bottom: 0;
+}
+
+.timeline-item.active {
+    opacity: 1;
+    transform: translateX(12px);
 }
 
 .timeline-item::before {
@@ -1061,6 +1113,28 @@ nav {
     border: 4px solid var(--color-bg);
     box-shadow: var(--shadow-md);
     z-index: 2;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-item.active::before {
+    box-shadow: var(--shadow-lg);
+    border-width: 3px;
+    border-color: var(--color-secondary);
+}
+
+.timeline-item-content {
+    background: var(--color-bg-light);
+    border: 1px solid var(--color-border-light);
+    padding: var(--spacing-2xl) var(--spacing-2xl);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.timeline-item.active .timeline-item-content {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-border);
+    transform: translateY(-2px);
 }
 
 .timeline-item h3 {
@@ -1070,6 +1144,19 @@ nav {
     margin-bottom: var(--spacing-md);
     letter-spacing: 0.5px;
     color: var(--color-text);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    padding-bottom: var(--spacing-sm);
+}
+
+.timeline-item.active h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--color-secondary);
 }
 
 .timeline-item p {
@@ -1077,6 +1164,39 @@ nav {
     line-height: 1.8;
     color: var(--color-text-light);
     font-weight: 400;
+    transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-item.active p {
+    color: var(--color-text);
+}
+
+/* Respect reduced motion for timeline */
+@media (prefers-reduced-motion: reduce) {
+    .timeline-item,
+    .timeline-item::before,
+    .timeline-item-content {
+        transition: none;
+    }
+    
+    .timeline-item.active {
+        transform: translateX(0);
+    }
+    
+    .timeline-item.active .timeline-item-content {
+        transform: translateY(0);
+    }
+}
+
+/* Light mode adjustments for timeline */
+[data-theme="light"] .timeline-item-content {
+    background: var(--color-bg-light);
+    border-color: var(--color-border);
+}
+
+[data-theme="light"] .timeline-item.active .timeline-item-content {
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-md);
 }
 
 .timeline-cta {
@@ -1144,7 +1264,10 @@ nav {
     font-size: 20px;
     font-weight: 600;
     box-shadow: var(--shadow-xl);
-    position: relative;
+    position: sticky;
+    top: 120px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
     overflow: hidden;
 }
 
@@ -1158,6 +1281,12 @@ nav {
     background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
 }
 
+.case-study-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
 .case-study-details h3 {
     font-family: var(--font-heading);
     font-size: clamp(32px, 4vw, 40px);
@@ -1169,13 +1298,23 @@ nav {
 
 .case-study-meta {
     color: var(--color-text-light);
-    margin-bottom: 40px;
+    margin-bottom: 0;
     font-size: 16px;
     font-weight: 500;
 }
 
 .case-study-section {
-    margin-bottom: 36px;
+    margin-bottom: 0;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+}
+
+.case-study-section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .case-study-section h4 {
@@ -1267,6 +1406,39 @@ nav {
 .case-link:hover {
     color: var(--color-primary-dark);
     border-color: var(--color-primary-dark);
+}
+
+/* Respect reduced motion for case study */
+@media (prefers-reduced-motion: reduce) {
+    .case-study-image {
+        transition: none;
+    }
+    
+    .case-study-section {
+        opacity: 1;
+        transform: translateY(0);
+        transition: none;
+    }
+}
+
+/* Responsive adjustments for sticky elements */
+@media (max-width: 1024px) {
+    .case-study-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .case-study-image {
+        position: relative;
+        top: 0;
+        margin-bottom: var(--spacing-xl);
+    }
+    
+    .timeline::before {
+        position: absolute;
+        top: 0;
+        transform: none;
+        height: 100%;
+    }
 }
 
 /* Tech Credibility */
@@ -1381,7 +1553,7 @@ nav {
 
 .final-cta h2 {
     font-family: var(--font-heading);
-    font-size: clamp(48px, 8vw, 120px);
+    font-size: clamp(40px, 4vw, 64px);
     font-weight: 900;
     margin-bottom: var(--spacing-2xl);
     letter-spacing: 0.5px;
@@ -1538,7 +1710,7 @@ footer a:hover {
     }
     
     .hero h1 {
-        font-size: clamp(48px, 10vw, 120px);
+        font-size: clamp(40px, 5vw, 64px);
     }
     
     .hero .tagline {
@@ -1642,5 +1814,25 @@ footer a:hover {
     .service-meta {
         flex-direction: column;
         gap: var(--spacing-lg);
+    }
+}
+
+/* Large screens (Full HD and above) - ensure fonts don't get too large */
+@media (min-width: 1920px) {
+    .hero h1 {
+        font-size: clamp(48px, 3.5vw, 72px);
+    }
+    
+    .section-title,
+    .final-cta h2 {
+        font-size: clamp(40px, 3vw, 64px);
+    }
+    
+    .hero .tagline {
+        font-size: clamp(18px, 1.5vw, 24px);
+    }
+    
+    .ai-agent-interface {
+        margin-top: 60px;
     }
 }
