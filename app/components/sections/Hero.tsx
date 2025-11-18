@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 
 interface HeroProps {
   words?: string[];
+  children?: ReactNode;
 }
 
-export function Hero({ words = ['lovable', 'v0', 'macally'] }: HeroProps) {
+export function Hero({ words = ['lovable', 'v0', 'macally'], children }: HeroProps) {
   const [currentWord, setCurrentWord] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
 
@@ -60,6 +61,9 @@ export function Hero({ words = ['lovable', 'v0', 'macally'] }: HeroProps) {
             app to production ready quality.
           </h1>
           <p className="tagline">AI-powered development. Quality code. Real results.</p>
+          
+          {/* Render AI Agent Interface or other children if provided */}
+          {children}
           
           <div className="hero-ctas">
             <a href="#services" className="cta-primary">Get free assesment →</a>

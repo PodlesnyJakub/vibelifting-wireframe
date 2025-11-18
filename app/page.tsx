@@ -19,8 +19,13 @@ export default function Home() {
   return (
     <>
       {flags.showNavigation && <Navigation />}
-      {flags.showHero && <Hero />}
-      {flags.showAIAgentInterface && <AIAgentInterface />}
+      {flags.showHero && (
+        <Hero>
+          {flags.showAIAgentInterface && <AIAgentInterface />}
+        </Hero>
+      )}
+      {/* If hero is disabled but AI agent is enabled, show AI agent separately */}
+      {!flags.showHero && flags.showAIAgentInterface && <AIAgentInterface />}
       {flags.showServices && <Services />}
       {flags.showGuarantees && <Guarantees />}
       {flags.showHowWeWork && <HowWeWork />}
