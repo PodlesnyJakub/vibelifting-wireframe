@@ -1,8 +1,8 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-
-type Theme = 'dark' | 'light';
+import { setThemeCookie } from './theme-cookie-client';
+import { Theme } from './theme-types';
 
 interface ThemeContextType {
   theme: Theme;
@@ -11,25 +11,32 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
+interface ThemeProviderProps {
+  children: ReactNode;
+  initialTheme: Theme;
+}
+
+export function ThemeProvider({ children, initialTheme }: ThemeProviderProps) {
+  const [theme, setTheme] = useState<Theme>(initialTheme);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Get theme from localStorage or default to dark
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
-    const initialTheme = savedTheme || 'dark';
-    setTheme(initialTheme);
     setMounted(true);
     
-    // Apply theme to document (script in head should have already done this, but ensure it's set)
-    document.documentElement.setAttribute('data-theme', initialTheme);
-  }, []);
+    // Check localStorage for a different theme preference
+    const savedTheme = localStorage.getItem('theme') as Theme | null;
+    if (savedTheme && savedTheme !== initialTheme) {
+      setTheme(savedTheme);
+      setThemeCookie(savedTheme);
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+  }, [initialTheme]);
 
   useEffect(() => {
     if (mounted) {
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
+      setThemeCookie(theme);
     }
   }, [theme, mounted]);
 
