@@ -14,6 +14,7 @@ export interface FeatureFlags {
   showWhyUs: boolean;
   showCaseStudy: boolean;
   showTechCredibility: boolean;
+  showTrustAnchor: boolean;
   showFAQ: boolean;
   showFinalCTA: boolean;
   showFooter: boolean;
@@ -33,6 +34,7 @@ const defaultFlags: FeatureFlags = {
   showWhyUs: true,
   showCaseStudy: true,
   showTechCredibility: true,
+  showTrustAnchor: true,
   showFAQ: true,
   showFinalCTA: true,
   showFooter: true,
@@ -56,6 +58,7 @@ export function getFeatureFlags(): FeatureFlags {
     showWhyUs: process.env.NEXT_PUBLIC_SHOW_WHY_US !== 'false',
     showCaseStudy: process.env.NEXT_PUBLIC_SHOW_CASE_STUDY !== 'false',
     showTechCredibility: process.env.NEXT_PUBLIC_SHOW_TECH_CREDIBILITY !== 'false',
+    showTrustAnchor: process.env.NEXT_PUBLIC_SHOW_TRUST_ANCHOR !== 'false',
     showFAQ: process.env.NEXT_PUBLIC_SHOW_FAQ !== 'false',
     showFinalCTA: process.env.NEXT_PUBLIC_SHOW_FINAL_CTA !== 'false',
     showFooter: process.env.NEXT_PUBLIC_SHOW_FOOTER !== 'false',

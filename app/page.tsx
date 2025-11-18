@@ -10,6 +10,7 @@ import { HowWeWork } from './components/sections/HowWeWork';
 import { WhyUs } from './components/sections/WhyUs';
 import { CaseStudy } from './components/sections/CaseStudy';
 import { TechCredibility } from './components/sections/TechCredibility';
+import { TrustAnchor } from './components/sections/TrustAnchor';
 import { FAQ } from './components/sections/FAQ';
 import { FinalCTA } from './components/sections/FinalCTA';
 import { Footer } from './components/sections/Footer';
@@ -38,6 +39,7 @@ export default function Home() {
       {flags.showWhyUs && <WhyUs />}
       {flags.showCaseStudy && <CaseStudy />}
       {flags.showTechCredibility && <TechCredibility />}
+      {flags.showTrustAnchor && <TrustAnchor />}
       {flags.showFAQ && <FAQ />}
       {flags.showFinalCTA && <FinalCTA />}
       {flags.showFooter && <Footer />}
