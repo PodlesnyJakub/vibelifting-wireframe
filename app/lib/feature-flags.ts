@@ -5,6 +5,9 @@ export interface FeatureFlags {
   showNavigation: boolean;
   showHero: boolean;
   showAIAgentInterface: boolean;
+  showProblem: boolean;
+  showSolution: boolean;
+  showUpgrade: boolean;
   showServices: boolean;
   showGuarantees: boolean;
   showHowWeWork: boolean;
@@ -21,6 +24,9 @@ const defaultFlags: FeatureFlags = {
   showNavigation: true,
   showHero: true,
   showAIAgentInterface: true,
+  showProblem: true,
+  showSolution: true,
+  showUpgrade: true,
   showServices: true,
   showGuarantees: true,
   showHowWeWork: true,
@@ -41,6 +47,9 @@ export function getFeatureFlags(): FeatureFlags {
     showNavigation: process.env.NEXT_PUBLIC_SHOW_NAVIGATION !== 'false',
     showHero: process.env.NEXT_PUBLIC_SHOW_HERO !== 'false',
     showAIAgentInterface: process.env.NEXT_PUBLIC_SHOW_AI_AGENT !== 'false',
+    showProblem: process.env.NEXT_PUBLIC_SHOW_PROBLEM !== 'false',
+    showSolution: process.env.NEXT_PUBLIC_SHOW_SOLUTION !== 'false',
+    showUpgrade: process.env.NEXT_PUBLIC_SHOW_UPGRADE !== 'false',
     showServices: process.env.NEXT_PUBLIC_SHOW_SERVICES !== 'false',
     showGuarantees: process.env.NEXT_PUBLIC_SHOW_GUARANTEES !== 'false',
     showHowWeWork: process.env.NEXT_PUBLIC_SHOW_HOW_WE_WORK !== 'false',

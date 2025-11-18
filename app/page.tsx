@@ -1,6 +1,9 @@
 import { Navigation } from './components/sections/Navigation';
 import { Hero } from './components/sections/Hero';
 import { AIAgentInterface } from './components/sections/AIAgentInterface';
+import { Problem } from './components/sections/Problem';
+import { Solution } from './components/sections/Solution';
+import { Upgrade } from './components/sections/Upgrade';
 import { Services } from './components/sections/Services';
 import { Guarantees } from './components/sections/Guarantees';
 import { HowWeWork } from './components/sections/HowWeWork';
@@ -26,6 +29,9 @@ export default function Home() {
       )}
       {/* If hero is disabled but AI agent is enabled, show AI agent separately */}
       {!flags.showHero && flags.showAIAgentInterface && <AIAgentInterface />}
+      {flags.showProblem && <Problem />}
+      {flags.showSolution && <Solution />}
+      {flags.showUpgrade && <Upgrade />}
       {flags.showServices && <Services />}
       {flags.showGuarantees && <Guarantees />}
       {flags.showHowWeWork && <HowWeWork />}

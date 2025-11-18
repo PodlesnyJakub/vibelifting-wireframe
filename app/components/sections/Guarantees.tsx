@@ -43,72 +43,49 @@ export function Guarantees() {
   return (
     <section className="guarantees">
       <div className="container">
-        <h2 className="section-title section-title-outlined section-title-center">Your success is guaranteed</h2>
+        <div className="section-eyebrow">The Guarantees · Founder-First Protection</div>
+        <h2 className="section-title section-title-outlined section-title-center">Your Investment is Protected. Period.</h2>
         <p className="section-subtitle">
-          Industry-leading guarantees and protection for your investment
+          You&apos;ve already been burned by a risky prototype. We&apos;re here to build trust. That&apos;s why every project is protected by our &quot;Founder-First&quot; Guarantees.
         </p>
         
-        <div className="guarantees-grid">
-          <div className="guarantee-item">
-            <div className="guarantee-icon">🔒</div>
-            <h3>Full Code Ownership</h3>
-            <p>You own 100% of the code from day one</p>
-          </div>
-          
-          <div className="guarantee-item">
+        <div className="guarantees-layout">
+          <div className="guarantee-item guarantee-featured">
             <div className="guarantee-icon">💰</div>
-            <h3>14-Day Money Back</h3>
-            <p>Not satisfied? Get a full refund within 14 days</p>
+            <h3>14-Day Risk-Free Guarantee</h3>
+            <p>If you&apos;re not 100% satisfied with our work in the first 14 days, we&apos;ll issue a full refund. No questions asked. No hoops to jump through.</p>
+            <ul className="guarantee-featured-list">
+              <li>Full refund, no questions asked</li>
+              <li>Keep all the discovery work we&apos;ve done</li>
+              <li>No awkward conversations or justifications</li>
+              <li>Simply let us know and we&apos;ll process it immediately</li>
+            </ul>
           </div>
           
-          <div className="guarantee-item">
-            <div className="guarantee-icon">🔓</div>
-            <h3>No Lock-in</h3>
-            <p>Take your code and work with anyone, anytime</p>
-          </div>
-          
-          <div className="guarantee-item">
-            <div className="guarantee-icon">🛡️</div>
-            <h3>Security Standards</h3>
-            <p>Production-grade security in every line of code</p>
-          </div>
-          
-          <div className="guarantee-item">
-            <div className="guarantee-icon">⏱️</div>
-            <h3>2-Week Support</h3>
-            <p>Free support for any issues after launch</p>
-          </div>
-          
-          <div className="guarantee-item">
-            <div className="guarantee-icon">✅</div>
-            <h3>Production-Ready Code</h3>
-            <p>Battle-tested standards from day one</p>
-          </div>
-        </div>
-        
-        <div className="guarantee-details">
-          <div className="guarantee-detail-item">
-            <h3>Clean Code</h3>
-            <p>
-              All code is reviewed by senior developers and follows industry best practices. 
-              Well-documented and easy for your future team to maintain.
-            </p>
-          </div>
-          
-          <div className="guarantee-detail-item">
-            <h3>Full Transparency</h3>
-            <p>
-              Weekly progress updates and complete visibility throughout the development process. 
-              You always know what we&apos;re building and why.
-            </p>
-          </div>
-          
-          <div className="guarantee-detail-item">
-            <h3>Knowledge Transfer</h3>
-            <p>
-              Complete documentation and training so you or your team can maintain and extend the code. 
-              We help onboard your developers if needed.
-            </p>
+          <div className="guarantees-grid">
+            <div className="guarantee-item">
+              <div className="guarantee-icon">🔒</div>
+              <h3>NDA Protection by Default</h3>
+              <p>Your idea is your most valuable asset. It&apos;s 100% confidential and covered by an NDA from our very first call.</p>
+            </div>
+            
+            <div className="guarantee-item">
+              <div className="guarantee-icon">✅</div>
+              <h3>100% Code Ownership</h3>
+              <p>You own everything we write for you, from day one. No games, no clauses. It&apos;s your IP.</p>
+            </div>
+            
+            <div className="guarantee-item">
+              <div className="guarantee-icon">🔓</div>
+              <h3>No Lock-In. Ever.</h3>
+              <p>We&apos;ll never hold your code hostage. You can take your code and work with anyone, anytime.</p>
+            </div>
+            
+            <div className="guarantee-item">
+              <div className="guarantee-icon">🛡️</div>
+              <h3>Production-Grade Security</h3>
+              <p>We don&apos;t just &quot;vibe&quot; it. We build to the highest security standards, ensuring your app and your users are safe.</p>
+            </div>
           </div>
         </div>
       </div>
