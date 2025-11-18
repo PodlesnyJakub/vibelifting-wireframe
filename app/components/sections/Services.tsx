@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
+import { Wrench, Rocket } from 'lucide-react';
 
 export function Services() {
   const serviceCard1Ref = useRef<HTMLDivElement>(null);
@@ -41,12 +42,16 @@ export function Services() {
   return (
     <section className="services" id="services">
       <div className="container">
-        <h2 className="section-title section-title-outlined">What do you need?</h2>
+        <div className="section-eyebrow">Our Services · Your Options</div>
+        <h2 className="section-title">
+          What do<br />
+          <span className="section-title-outlined">you need?</span>
+        </h2>
         
         <div className="services-grid">
           {/* Migration Service */}
           <div className="service-card" ref={serviceCard1Ref}>
-            <div className="service-icon">🔧</div>
+            <Wrench className="service-icon" size={32} strokeWidth={1.5} />
             <h3 className="service-title">Vibecode cleanup</h3>
             <p className="service-subtitle">
               Built something with AI tools like Lovable or v0? We make it production-ready. Secure, fast, maintainable.
@@ -87,7 +92,7 @@ export function Services() {
 
           {/* New MVP Service */}
           <div className="service-card" ref={serviceCard2Ref}>
-            <div className="service-icon">🚀</div>
+            <Rocket className="service-icon" size={32} strokeWidth={1.5} />
             <h3 className="service-title">Build New MVP</h3>
             <p className="service-subtitle">
               We build your SaaS from scratch using AI-accelerated development. You get a working product your users can actually use.

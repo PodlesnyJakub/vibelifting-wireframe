@@ -2,7 +2,11 @@ export function FAQ() {
   return (
     <section className="faq">
       <div className="container">
-        <h2 className="section-title section-title-outlined section-title-center">Common questions</h2>
+        <div className="section-eyebrow">FAQ · Your Questions Answered</div>
+        <h2 className="section-title section-title-center">
+          Common<br />
+          <span className="section-title-outlined">questions</span>
+        </h2>
         
         <div className="faq-list">
           <div className="faq-item">

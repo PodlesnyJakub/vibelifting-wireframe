@@ -60,7 +60,7 @@ export function Hero({ words = ['lovable', 'v0', 'macally'], children }: HeroPro
             </span>{' '}
             app to production ready quality.
           </h1>
-          <p className="tagline">AI-powered development. Quality code. Real results.</p>
+          <p className="tagline">Transform your vision into production-ready applications with AI-powered development</p>
           
           {/* Render AI Agent Interface or other children if provided */}
           {children}

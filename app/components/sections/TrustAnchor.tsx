@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { Users, Calendar, Globe } from 'lucide-react';
 
 export function TrustAnchor() {
   const [isVisible, setIsVisible] = useState(false);
@@ -28,8 +29,10 @@ export function TrustAnchor() {
   return (
     <section className="trust-anchor" ref={sectionRef}>
       <div className="container">
+        <div className="section-eyebrow">Our Heritage · Experience You Can Trust</div>
         <h2 className="section-title section-title-center">
-          We're Not a "Vibe" Startup. We're an Elite SWAT Team.
+          We're Not a "Vibe" Startup.<br />
+          <span className="section-title-outlined">We're an Elite SWAT Team.</span>
         </h2>
         
         <p className="trust-anchor-subtitle">
@@ -38,7 +41,6 @@ export function TrustAnchor() {
 
         <div className={`trust-anchor-main-card ${isVisible ? 'visible' : ''}`}>
           <div className="trust-anchor-card-header">
-            <div className="trust-anchor-main-icon">🎯</div>
             <h3 className="trust-anchor-main-title">
               Vibelifting is the dedicated AI-first wing of Applifting.
             </h3>
@@ -56,21 +58,21 @@ export function TrustAnchor() {
           
           <div className="trust-anchor-stats">
             <div className="trust-stat-item">
-              <div className="trust-stat-icon">🏢</div>
+              <Users className="trust-stat-icon" size={32} strokeWidth={1.5} />
               <div className="trust-stat-content">
                 <div className="trust-stat-value">200+</div>
                 <div className="trust-stat-label">Engineers</div>
               </div>
             </div>
             <div className="trust-stat-item">
-              <div className="trust-stat-icon">📅</div>
+              <Calendar className="trust-stat-icon" size={32} strokeWidth={1.5} />
               <div className="trust-stat-content">
                 <div className="trust-stat-value">12 Years</div>
                 <div className="trust-stat-label">Experience</div>
               </div>
             </div>
             <div className="trust-stat-item">
-              <div className="trust-stat-icon">🌍</div>
+              <Globe className="trust-stat-icon" size={32} strokeWidth={1.5} />
               <div className="trust-stat-content">
                 <div className="trust-stat-value">Global</div>
                 <div className="trust-stat-label">Software House</div>

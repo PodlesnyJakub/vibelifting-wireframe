@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
+import { Target, Zap, Layers, Rocket } from 'lucide-react';
 
 export function Upgrade() {
   const featuresRef = useRef<HTMLDivElement>(null);
@@ -36,7 +37,10 @@ export function Upgrade() {
         <div className="upgrade-content">
           <div className="upgrade-header">
             <div className="section-eyebrow">The Upgrade · AI-Powered MVP Development</div>
-            <h2 className="section-title section-title-center">Need to Build, Not Just Fix?</h2>
+            <h2 className="section-title section-title-center">
+              Need to Build,<br />
+              <span className="section-title-outlined">Not Just Fix?</span>
+            </h2>
             <p className="upgrade-subtitle">
               For founders who are ready to build their full vision, we offer something better than a 
               traditional agency. Get a dedicated, AI-augmented team for a flat monthly subscription.
@@ -45,7 +49,7 @@ export function Upgrade() {
 
           <div className="upgrade-card" ref={featuresRef}>
             <div className="upgrade-card-header">
-              <div className="upgrade-icon">🚀</div>
+              <Rocket className="upgrade-icon" size={48} strokeWidth={1.5} />
               <h3 className="upgrade-card-title">Your Dedicated MVP Development Team</h3>
             </div>
 
@@ -61,7 +65,7 @@ export function Upgrade() {
 
             <div className="upgrade-features">
               <div className="upgrade-feature">
-                <div className="upgrade-feature-icon">🎯</div>
+                <Target className="upgrade-feature-icon" size={24} strokeWidth={1.5} />
                 <div className="upgrade-feature-content">
                   <h4 className="upgrade-feature-title">Result-Oriented</h4>
                   <p className="upgrade-feature-description">
@@ -71,7 +75,7 @@ export function Upgrade() {
               </div>
 
               <div className="upgrade-feature">
-                <div className="upgrade-feature-icon">⚡</div>
+                <Zap className="upgrade-feature-icon" size={24} strokeWidth={1.5} />
                 <div className="upgrade-feature-content">
                   <h4 className="upgrade-feature-title">AI-Augmented</h4>
                   <p className="upgrade-feature-description">
@@ -82,7 +86,7 @@ export function Upgrade() {
               </div>
 
               <div className="upgrade-feature">
-                <div className="upgrade-feature-icon">💪</div>
+                <Layers className="upgrade-feature-icon" size={24} strokeWidth={1.5} />
                 <div className="upgrade-feature-content">
                   <h4 className="upgrade-feature-title">Full-Stack Power</h4>
                   <p className="upgrade-feature-description">

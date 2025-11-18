@@ -2,7 +2,11 @@ export function FinalCTA() {
   return (
     <section className="final-cta" id="contact">
       <div className="container">
-        <h2 className="section-title section-title-outlined section-title-center">Ready to start?</h2>
+        <div className="section-eyebrow">Get Started · Take The First Step</div>
+        <h2 className="section-title section-title-center">
+          Ready to<br />
+          <span className="section-title-outlined">start?</span>
+        </h2>
         
         <div className="cta-wrapper">
           <a href="#" className="cta-primary">Book a 30-minute call →</a>
